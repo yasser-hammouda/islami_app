@@ -20,10 +20,10 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
         children: [
           InkWell(
             onTap: () {
-              provider.changeLanguage('en');
+              provider.changeTheme(ThemeMode.dark);
             },
             // english selected
-            child: provider.appLanuage == 'en'
+            child: provider.appTheme == ThemeMode.dark
                 ? getSelectedItemWidget(AppLocalizations.of(context)!.dark)
                 : getUnselectedItemWidget(AppLocalizations.of(context)!.dark),
           ),
@@ -32,11 +32,11 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
           ),
           InkWell(
             onTap: () {
-              provider.changeLanguage('ar');
+              provider.changeTheme(ThemeMode.light);
             },
-            child: provider.appLanuage == 'ar'
-                ? getSelectedItemWidget(AppLocalizations.of(context)!.arabic)
-                : getUnselectedItemWidget(AppLocalizations.of(context)!.arabic),
+            child: provider.appTheme == ThemeMode.light
+                ? getSelectedItemWidget(AppLocalizations.of(context)!.light)
+                : getUnselectedItemWidget(AppLocalizations.of(context)!.light),
           ),
         ],
       ),

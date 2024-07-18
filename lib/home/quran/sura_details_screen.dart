@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:islami/home/app_colors.dart';
 import 'package:islami/home/quran/item_sura_details_screen.dart';
 import 'package:islami/home/quran/item_sura_name.dart';
+import 'package:islami/providers/app_config_provider.dart';
+import 'package:provider/provider.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   static const String routeName = 'sura_details_screen';
@@ -17,12 +19,20 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments as SuraDetailsArgs;
+    var provider = Provider.of<AppConfigProvider>(context);
     if (verses.isEmpty) {
       loadFile(args.index);
     }
     return Stack(
       children: [
-        Image.asset(
+        provider.isDarkMode()
+            ? Image.asset(
+                'assets/images/main_background_dark.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
           'assets/images/background.png',
           width: double.infinity,
           height: double.infinity,
@@ -38,7 +48,9 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
           body: verses.isEmpty
               ? Center(
                   child: CircularProgressIndicator(
-                  color: AppColors.primaryLightColor,
+                  color: provider.isDarkMode()
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryLightColor,
                 ))
               : Container(
                   margin: EdgeInsets.symmetric(
@@ -47,7 +59,9 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
-                    color: AppColors.whiteColor,
+                    color: provider.isDarkMode()
+                        ? AppColors.primaryDarkColor
+                        : AppColors.whiteColor,
                   ),
                   child: ListView.separated(
                     itemBuilder: (context, index) {
@@ -60,7 +74,9 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                     separatorBuilder: (context, index) {
                       return Divider(
                         thickness: 2,
-                        color: AppColors.primaryLightColor,
+                        color: provider.isDarkMode()
+                            ? AppColors.primaryDarkColor
+                            : AppColors.primaryLightColor,
                       );
                     },
                   ),

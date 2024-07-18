@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:islami/home/app_colors.dart';
 import 'package:islami/home/hadeth/hadeth_tab.dart';
 import 'package:islami/home/hadeth/item_hadeth_details_screen.dart';
+import 'package:islami/providers/app_config_provider.dart';
+import 'package:provider/provider.dart';
 
 class HadethDetailsScreen extends StatefulWidget {
   static const String routeName = 'hadeth_details_screen';
@@ -14,9 +16,17 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments as Hadeth;
+    var provider = Provider.of<AppConfigProvider>(context);
     return Stack(
       children: [
-        Image.asset(
+        provider.isDarkMode()
+            ? Image.asset(
+                'assets/images/main_background_dark.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
           'assets/images/background.png',
           width: double.infinity,
           height: double.infinity,
@@ -36,7 +46,9 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: AppColors.whiteColor,
+              color: provider.isDarkMode()
+                  ? AppColors.primaryDarkColor
+                  : AppColors.whiteColor,
             ),
             child: ListView.builder(
               itemBuilder: (context, index) {
