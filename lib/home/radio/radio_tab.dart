@@ -10,7 +10,9 @@ class RadioTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Image.asset('assets/images/radio_logo.png'),
-          Text('Holy Quran Radio'),
+          Text(
+            AppLocalizations.of(context)!.holy_quran_radio,
+          ),
           Image.asset('assets/images/radio_bottom.png'),
         ],
       ),

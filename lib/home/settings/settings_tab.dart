@@ -10,6 +10,7 @@ class SettingsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<AppConfigProvider>(context);
+
     return Container(
       margin: EdgeInsets.all(15),
       child: Column(
@@ -71,7 +72,9 @@ class SettingsTab extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.dark,
+                    provider.isDarkMode()
+                        ? AppLocalizations.of(context)!.dark
+                        : AppLocalizations.of(context)!.light,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Icon(
@@ -97,6 +100,7 @@ class SettingsTab extends StatelessWidget {
 
   void showThemeBottomSheet(BuildContext context) {
     showModalBottomSheet(
+        //backgroundColor: AppColors.yellowColor,
         context: context, builder: (context) => ThemeBottomSheet());
   }
 }
